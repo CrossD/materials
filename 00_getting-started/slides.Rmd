@@ -112,9 +112,11 @@ length(pkgs)
 
 ## at the end of the course you will ...
 
+- be able to acquire and read data in different formats and from different sources
 - know the basic programming principles of R
 - be able to implement a basic data pipeline
 - be able to do a data exploration
+- visualize data in appropriate forms
 - communicate your findings in a reproducible form as report and/or web-app
 
 
@@ -151,7 +153,7 @@ Course website:
 
 ## Labs
 
-- during class time on every other Thursday (starting with Thursday, Jan 18th) 
+- during class time on every other Thursday (starting with Thursday, Jan 19th) 
 - you will be partnered (randomly) in groups of 3 to 4
 - lab assignments are designed to be finished during class time, but 'finishing touches' can be applied until the following Monday, 10pm. 
 - if you cannot attend the lab, please let me know beforehand. Nevertheless, you are expected to do the work!
@@ -212,3 +214,33 @@ Have a look at:
 - stackoverflow's [Asking a good question](http://stackoverflow.com/help/how-to-ask)
 - R's [Posting guidelines](https://www.r-project.org/posting-guide.html)
 
+## What is exploratory data analysis?
+
+Typical data science project:
+
+![typical cycle of a data science project](http://r4ds.had.co.nz/diagrams/data-science.png)
+
+
+- exploration goes hand in hand with understanding
+- our understanding of the world must be based on data
+
+## An example: mind the gap!
+
+Statistician Hans Rosling (1948 - 2017) presented [GapMinder at TED 2006](https://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen)
+
+- preconceived notions are problematic
+- up-to-date data helps us learn about the world
+
+... let's try this out ...
+
+## Your Turn {.white}
+
+<img src="data/blue.jpeg" class="cover" height=1500>
+
+
+- <font color="white">Follow the link to open Gapminder tools at https://www.gapminder.org/tools/#_chart-type=bubbles</font>
+- <font color="white">Recreate Hans Rosling's chart of life expectancy (y-axis) by number of children (x-axis) and move the slider over time.</font>
+- <font color="white">Using this chart, can you find evidence for the AIDS epidemic in Africa? the civil war in Nigeria? the earth quake in Haiti?</font>
+- <font color="white">How is income related to life expectancy?
+</font>
+- <font color="white">What else did you find? How much of this did you know before?</font>
