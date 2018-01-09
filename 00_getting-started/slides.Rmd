@@ -122,7 +122,7 @@ length(pkgs)
 
 ## Syllabus
 
-Full syllabus is available [from the course website](syllabus.pdf).
+Full syllabus is available [from the course website](https://stat480-at-isu.github.io/syllabus.pdf).
 
 ###Textbook (optional)
 
@@ -213,6 +213,47 @@ Have a look at:
 
 - stackoverflow's [Asking a good question](http://stackoverflow.com/help/how-to-ask)
 - R's [Posting guidelines](https://www.r-project.org/posting-guide.html)
+
+## Asking a good question
+
+is a learned and valuable skill!
+
+Have a look at:
+
+- stackoverflow's [Asking a good question](http://stackoverflow.com/help/how-to-ask)
+- R's [Posting guidelines](https://www.r-project.org/posting-guide.html)
+
+## What do you know already?
+
+- excel?
+- a programming language? 
+- SAS? R? R markdown?
+- database theory? what is a third normal form?
+
+## What is this class about?
+
+- very data centric
+- I'd like to know what you are interested in
+
+## 
+
+- **Sports** e.g. Baseball salaries and performance
+- **Crime data** (incl. type, time, place, demographics etc.)
+- **Health** e.g. fitness statistics, or disease rates, or health care costs
+- **Movies** e.g. ratings/box office revenues from IMDB
+Climate/Weather Data
+- **Travel data**, e.g. US flights
+- **Environmental Data**: Pollution, Fuel Economy, CO2 Emissions (Carbon Footprint)
+- **Global Data**:  World Economy, Social indicators, ...
+
+
+Anything else you can think of?
+
+
+## Now vote
+
+Go to Wufoo Site to let me know your favorites and make suggestions:
+http://heike.wufoo.com/forms/topics-of-interest/ 
 
 ## What is exploratory data analysis?
 
