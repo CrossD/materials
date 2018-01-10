@@ -1,190 +1,110 @@
 ---
-title: "Stat 585 - Working in teams: Sample solution for the test case"
+title: "DS 202 - Working in teams: Sample solution for the test case"
 author: "Heike Hofmann"
 ratio: 16x10
 output:
-  rmdshower::shower_presentation:
-    self_contained: false
-    katex: true
-    theme: ribbon
+  html_document
 ---
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, fig.width=4, fig.height=4)
+library(tidyverse)
 ```
 
-# Solution to the test case 
+# Sample Solution to the test case 
 
 ## A test case
 
-The dataset `brfss_iowa.csv` (linked from website) contains 6227 records from the Behavioral Risk Factor Surveillance System (BRFSS) for Iowans.
+We are asked to : 
 
-> The Behavioral Risk Factor Surveillance System (BRFSS) is the nation's premier system of health-related telephone surveys that collect state data about U.S. residents regarding their health-related risk behaviors.
+1. Visualize life expectancy over time for Canada in the 1950s and 1960s using a line plot.
+2. Something is clearly wrong with this plot! Turns out there's a data error 
+in the data file: life expectancy for Canada in the year 1957 is coded
+as `999999`, it should actually be `69.96`. Make this correction.
+3. Visualize life expectancy over time for Canada again, with the corrected data.
 
-It is conducted annually by the Center for Disease Control and Prevention (CDC).
+Using the gapminder data provided
 
-Codebook with detailed explanations of variables is [available here](https://www.cdc.gov/brfss/annual_data/2015/pdf/codebook15_llcp.pdf).
+## Step-by-step plan of work
 
-## Our turn
+1. Read the data
+2. Focus on values of Canada
+3. Visualize the values for Canada
+4. See whether we can find the problem
+5. ... then we'll see ...
 
-We are asked to investigate the relationship between height and weight of Iowans based on the 2015 BRFSS records (see course website for data).
-(The variables `WEIGHT2` and `HEIGHT3` are collected during the interview)
+## Reading the data 
 
-<br>
+```{r}
+life5060 <- read.csv("https://raw.githubusercontent.com/ds202-at-isu/materials/master/01_collaborative-environment/data/gapminder-5060.csv")
+head(life5060)
+```
 
-1. Navigate to https://github.com/Stat585-at-ISU/materials
+## Focus on the values for Canada
+
+```{r}
+canada <- life5060 %>% filter(country == "Canada")
+head(canada)
+```
+
+## Visualize 
+
+Draw a line for the life expectancy in Canada
+```{r}
+canada %>% 
+  ggplot(aes(x = year, y = lifeExp)) +
+  geom_line()
+```
+
+## Find the problematic value and fix it
+
+```{r}
+canada %>% filter(year == 1957)
+
+canada_fixed <- canada %>% mutate(
+  lifeExp = replace(lifeExp, year==1957, 69.96)  
+)
+```
+
+## visualize the fixed data
+
+```{r}
+canada_fixed %>% ggplot(aes(x = year, y = lifeExp)) +
+  geom_line()
+```
+
+## ... on to the stretch goal ... 
+
+Add lines for Mexico and the US
+
+```{r}
+canada_fixed %>% 
+  ggplot(aes(x = year, y = lifeExp, group=country)) + geom_line() +
+  geom_line(data = life5060 %>% 
+              filter(country %in% c("United States", "Mexico")))
+```
+
+## ... on to the stretch goal ... 
+
+Add lines for Mexico and the US, color lines by country and add a legend
+
+```{r, fig.width = 6}
+canada_fixed %>% 
+  ggplot(aes(x = year, y = lifeExp, colour=country)) + geom_line() +
+  geom_line(data = life5060 %>% 
+              filter(country %in% c("United States", "Mexico")))
+
+```
+
+## How reproducible is this solution?
+
+1. Navigate to https://github.com/ds202-at-isu/materials
 2. Open the folder `01_collaborative-environment` and download the file `02_test-case-solution.Rmd`
 3. Open the file in RStudio.
 4. "Knit" the file.
 
-## What is the relationship between height and weight? 
 
-Read the data: 
+## R Markdown
 
-```{r message = FALSE}
-iowa <- readr::read_csv("https://github.com/Stat585-at-ISU/materials/raw/master/01_collaborative-environment/data/brfss_iowa.csv") 
-# the read_csv function from the readr package is faster than the standard read.csv
-# but the output is a tibble (we'll come back to that)
-iowa
-```
-
-## Plot 
-
-Load the `ggplot2` package to plot weight versus height:
-```{r message = FALSE, fig.width=3.5, fig.height = 3.5, warning = FALSE}
-library(ggplot2)
-library(tidyverse)
-iowa %>% 
-  ggplot(aes(x = WEIGHT2, y = HEIGHT3)) + geom_point()
-```
-
-## 
-Now that picture comes a bit as a surprise! I would have thought that height and weight would show a somewhat positive correlation, but these clusters are strange.
-
-Have a look at the [codebook](https://www.cdc.gov/brfss/annual_data/2015/pdf/codebook15_llcp.pdf): HEIGHT3 and WEIGHT2 are the originally recorded variables.
-
-<img src="https://github.com/Stat585-at-ISU/materials/raw/master/01_collaborative-environment/images/codebook-height3.png" width=750>
-
-## Next steps
-
-Obviously, we need to spend some time cleaning this variable (and the weight variable, too) before we can make use of them. 
-
-We have a couple of choices: 
-
-(1) We can buckle down and do that clean-up and then move on to the graphical summary. 
-(2) We can take another look at the variables and investigate what `HTIN4`, `HTM4`, and `WTKG3` are ... 
-
-## Route 2
-
-Let's take the second route first and draw a picture of height and weight in metric units:
-
-```{r message = FALSE, warning = FALSE, fig.width = 5.5, fig.height = 2.5}
-iowa %>% 
-  ggplot(aes(x = HTM4, y = WTKG3)) + geom_point(alpha = 0.2) + facet_grid(.~SEX) +
-  geom_smooth()
-```
-
-These charts look much better! We see a general increase in weight as height increases. The variability in weight is huge, though. On average, women (`SEX = 2`) are shorter and lighter.
-
-## Route 1
-
-This is a bit more work. Let's just take on height for now:
-
-```{r}
-# split the data into metric and standard:
-metric <- iowa %>% filter(HEIGHT3 >= 9000)
-standard <- iowa %>% filter(HEIGHT3 < 9000)
-
-# transform all metric values by subtracting 9000
-metric <- metric %>% mutate(
-  height = HEIGHT3 - 9000,
-  height = replace(height, height == 999, NA)
-)
-
-# extract feet and inch. calculate height from combining the two.
-# height is variable converted from inch to centimeter
-standard <- standard %>% mutate(
-  height = replace(HEIGHT3, HEIGHT3 == 7777, NA),
-  feet = height %/% 100,
-  inch = height %% 100,
-  height = feet *30.48 + 2.54*inch
-) %>% select (-feet, -inch)
-
-# get the data together again:
-iowa <- rbind(metric, standard)
-```
-
-##
-
-```{r}
-# now plot
-iowa %>% filter(!is.na(height)) %>%
-  ggplot(aes(x = height)) + geom_histogram(binwidth = 2.5) +
-  facet_grid(SEX~.)
-```
-
-We get similar findings - for height at least: women are on average shorter than men.
-
-## Route 1 (cont'd.)
-
-do the same thing for weight as we did for height before: 1 pound is 0.454 kg
-
-```{r}
-# split the data into metric and standard:
-metric <- iowa %>% filter(WEIGHT2 >= 9000)
-standard <- iowa %>% filter(WEIGHT2 < 9000)
-
-# transform all metric values by subtracting 9000
-metric <- metric %>% mutate(
-  weight = WEIGHT2 - 9000,
-  weight = replace(weight, weight == 999, NA)
-)
-
-# extract feet and inch. calculate height from combining the two.
-# height is variable converted from inch to centimeter
-standard <- standard %>% mutate(
-  weight = replace(WEIGHT2, WEIGHT2 == 7777, NA),
-  weight = weight*.454
-) 
-
-# get the data together again:
-iowa <- rbind(metric, standard)
-```
-
-## Route 1, result
-
-```{r warning = FALSE, fig.width=6.5, fig.height=3}
-iowa %>% ggplot(aes(x = height, y = weight)) + 
-  geom_point(alpha = 0.1) +
-  facet_grid(.~SEX) +
-  geom_smooth()
-```
-
-
-## Overview of the different height variables
-
-```{r}
-summary(iowa[,c("HEIGHT3", "HTIN4", "HTM4", "height")])
-```
-
-Why are there more missing values in `HTIN4`?
-
-##
-
-```{r}
-iowa %>% filter(is.na(HTIN4), !is.na(HTM4)) %>% select(HEIGHT3)
-```
-
-These seem to be metric values! Are any metric values  converted?
-
-```{r}
-summary(between(iowa$HEIGHT3, 9000, 9998))
-```
-
-No. The official BRFSS data is missing any metric data in the variable `HTIN4`!
-
-## Recap
-
-- this slide deck is rendered from an R Markdown document, located at [a github repo](https://github.com/Stat585-at-ISU/materials/tree/master/01_collaborative-environment).
 - code and text/documentation are interwoven: reproducible and self-documenting.
 - extend or refine analyses by copying and modifying code blocks.
 - disseminate your work by sharing the RMarkdown file
