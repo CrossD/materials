@@ -101,4 +101,10 @@ science forward
 - Even with a fairly simple analysis challenges were faced in four main areas:
 organization, documentation, automation, and dissemination
 
+## Particular Issues
 
+- rate of successful reproducibility surprisingly low
+
+- key people missing
+- different software used
+- lots of focus on getting the project done, very little focus on documentation/instructions
