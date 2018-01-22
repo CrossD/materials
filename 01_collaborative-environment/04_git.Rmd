@@ -42,7 +42,7 @@ http://xkcd.com/1597/
 
 <img src="images/stones-faded.png" class="cover">
 
-This Your Turn is just a prep to get ready for a bigger Your Turn later. 
+This Your Turn is just a prep to get ready for the lab later. 
 It'll take a couple of minutes of your time, but may need more time from github ... 
 
 
