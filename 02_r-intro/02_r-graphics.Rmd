@@ -1,5 +1,5 @@
 ---
-title: "DS 202: Basic Graphics with ggplot2"
+title: "DS 202: Graphics with ggplot2"
 author: Heike Hofmann
 ratio: 16x10
 output:
@@ -9,9 +9,35 @@ output:
     theme: ribbon
 ---
 
+```{r setup}
+knitr::opts_chunk$set(fig.width=3.5, fig.height=3.5)
+```
+
 # Looking at data
 
-## Questions for the fbi data
+## Data Exploration
+
+- asking good questions is important for any data exploration: "your data won't speak unless you ask the right questions"
+- a data exploration is a cycle of asking questions, looking at the answers, and deriving new questions from them
+- for a sound exploration: start by checking individual variables, then move on to higher dimensions
+
+# An example exploration
+
+
+
+## Your turn {.white}
+
+
+<img class="cover" src="images/blue.jpeg" alt="" width=2000>
+
+<span style="color:white">
+Write down questions that you could answer with this data 4 minutes by yourself, then pair up for another 3 minutes, and we'll write ideas on the board</span>
+
+```{r}
+library(classdata)
+head(fbiwide)
+```
+
 
 ## Plan for answers
 
@@ -19,22 +45,13 @@ output:
 - Explore how two variables are related:  *scatterplot, boxplot, tile plot*
 - Explore how two variables are related, conditioned on other variables: *facetting, color & other aesthetics*
 
-## Different version of the data
 
-For the exploration, we will use a different shape of the `fbi` data - a wide form:
+We will be using the `ggplot2` framework for plotting
 
 ```{r}
-library(classdata)
-str(fbiwide)
+library(ggplot2)
 ```
 
-## Scatterplots
-
-- need two continuous variables
-- we'll be using the `ggplot2` framework for plotting
-
-
-# Why `ggplot2`?
 
 ## Why `ggplot2`
 
@@ -43,39 +60,50 @@ str(fbiwide)
 - Designed to adhere to good graphical practices
 - Constructs plots using the concept of layers
 - Supports a wide variety plot types and extensions
+- Ported to different languages, e.g. `ggpy`
 \medskip
 - http://ggplot2.org/book/ or Hadley's book *ggplot2: Elegant Graphics for Data Analysis* for reference 
 
-## Grammar of Graphics
 
-A graphical representation (plot) consists of:
 
-1. **mappings** (`aes`):  data variables are mapped to graphical elements
-2. **layers**:  geometric elements (`geoms`, such as points, lines, rectangles, text, ...) and statistical transformations (`stats`, are identity, counts, bins, ...)
-3. **scales**: map values in the data space to values in an aesthetic space (e.g. color, size, shape, but also position)
-4. **coordinate system** (`coord`): normally Cartesian, but pie charts use e.g. polar coordinates
-5. **facetting**: for small multiples (subsets) and their arrangement
-6. **theme**: fine-tune display items, such as font and its size, color of background, margins, ...
+
+## `ggplot` Function
+
+The `ggplot` function is the basic workhorse of ggplot2
+
+- Produces all plot types available with ggplot2
+- Allows for plotting options within the function statement
+- Creates an object that can be saved
+- Plot layers can be added to modify plot complexity
+
+## `ggplot` Structure
+
+The `ggplot` function has the basic syntax:
+
+`ggplot(data, mappings) + geom_type(options)`
+
+- data: dataset to be used
+- mappings: determines which variables are connected to which plot elements, mappings are done with `aes()`
+- type: determines type of the plot, e.g. `point`, `line`, `bar`
+- options: there are so, so many options!
 
 ## Scatterplots in `ggplot2`
 
 `aes` allows us to specify mappings; scatterplots need a mapping for `x` and a mapping for `y`:
 
-```
+```{r}
 ggplot(data = fbiwide, aes(x = Burglary, y = Murder)) +
   geom_point()
 ```  
 
-```
-ggplot(data = fbiwide, aes(x = log(Burglary), y = log(Murder))) +
-  geom_point()
-```  
+## Your turn {.white}
 
-```
-ggplot(data = fbiwide, aes(x = log(Burglary), 
-                           y = log(Motor.vehicle.theft))) +
-  geom_point()
-```  
+<img class="cover" src="images/blue.jpeg" alt="" width=2000>
+
+- <span style="color:white">Draw a scatterplot of the number of burglaries by murders.</span>
+- <span style="color:white">Adjust the numbers of the above scatterplot to show log transformed numbers. How can we interpret the numbers on the axes?</span>
+- <span style="color:white">Draw a scatterplot of the log transformed number of burglaries by motor vehicle thefts.</span>
+
 
 ## Revision - Interpreting Scatterplots
 
@@ -86,67 +114,24 @@ ggplot(data = fbiwide, aes(x = log(Burglary),
 - Deviations from the pattern
     - Outliers
     
-##  
-
-### **Form**
-
-Is the plot linear?  Is the plot curved?  Is there a distinct pattern in the plot? Are there multiple groups?
-
-### **Strength**
-
-Does the plot follow the form very closely?  Or is there a lot of variation?   
-
-### **Direction**
-Is the pattern increasing?  Is the plot decreasing?
-
-*Positively:* Above (below) average in one variable tends to be associated with above (below) average in another variable.
-
-*Negatively:* Opposite pattern.
-
-## 
-
-<img class="cover" src="images/positive.png" alt="", width=2000>
-
-> 1. <font color="darkorange">Form: Linear</font>
-> 2. <font color="darkorange">Strength: Strong, very close to a straight line.</font>
-> 3. <font color="darkorange">Direction: Two variables are positively associated.</font>
-> 4. <font color="darkorange">No outliers.</font>
-
-
-## 
-
-<img class="cover" src="images/negative.png" alt="", width=2000>
-
-> 1. <font color="darkorange">Form: Roughly linear, two distinct groups (more than 40% and less than 40%.)</font>
-> 2. <font color="darkorange">Strength: not strong.  Data points are scattered.
-</font>
-> 3. <font color="darkorange">Direction: Negatively Associated.
-</font>
-> 4. <font color="darkorange">Outliers: None.</font>
 
 ## Aesthetics
 
-Can map other variables to size or colour
+Can map other variables to size, colour, shape, ....
 
-```
-ggplot(aes(x = log(Burglary), y = log(Motor.vehicle.theft),
-           colour=State), data=fbiwide) + geom_point()
-
+```{r}
 ggplot(aes(x = log(Burglary), y = log(Motor.vehicle.theft),
            colour=Year), data=fbiwide) + geom_point()
-```
-
-```
-ggplot(aes(x = log(Burglary), y = log(Motor.vehicle.theft),
-           size=Population), data=fbiwide) + geom_point()
-```
-
-other aesthetics: shape
-
+```           
 
 ## Your turn {.white}
 
 <img class="cover" src="images/blue.jpeg" alt="" width=2000>
 
-- <span style="color:white">Work through each of the example plots</font>
-- <span style="color:white">Try variations to answer your questions</font>
+
+- <span style="color:white">Draw a scatterplot of the log transformed number of burglaries by motor vehicle thefts. Map the state variable to colour. Why is this a terrible idea?</span>
+- <span style="color:white">Draw a scatterplot of the log transformed number of burglaries by motor vehicle thefts. Map Population to size. How do we interpret the output?</span>
+- <span style="color:white">Which other aesthetics are there? Have a look at the [RStudio cheat sheet on visualization](https://www.rstudio.com/resources/cheatsheets/) </span>
+
+<span style="color:white">**Stretch goal**: Draw a histogram of the state populations. </span>
+
