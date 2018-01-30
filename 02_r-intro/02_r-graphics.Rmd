@@ -9,7 +9,7 @@ output:
     theme: ribbon
 ---
 
-```{r setup}
+```{r setup, echo=FALSE}
 knitr::opts_chunk$set(fig.width=3.5, fig.height=3.5)
 ```
 
