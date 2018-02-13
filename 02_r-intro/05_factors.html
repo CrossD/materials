@@ -179,6 +179,97 @@
 <pre><code>## [1] &quot;Aggravated.assault&quot;  &quot;Burglary&quot;            &quot;Larceny.theft&quot;      
 ## [4] &quot;Legacy.rape&quot;         &quot;Motor.vehicle.theft&quot; &quot;Murder&quot;             
 ## [7] &quot;Rape&quot;                &quot;Robbery&quot;</code></pre>
+</section>
+<section id="factors-in-visualizations" class="titleslide slide level1"><h2 class="shout">Factors in visualizations</h2></section><section id="visualizing-factors" class="slide level2">
+<h2>Visualizing factors</h2>
+<ul>
+<li>visualize factors directly: barcharts</li>
+<li>use factors in aesthetics (<code>colour</code>, <code>fill</code>, <code>shape</code>) or for facetting</li>
+<li>always make sure that the order in factors is sensible!</li>
+</ul>
+</section><section id="note-factors-for-fill-color" class="slide level2">
+<h2>Note: factors for fill color</h2>
+<p>In area plots (histograms and barcharts for now) use aesthetic <code>fill</code> for showing colored areas.</p>
+<p>Only factor variables can be mapped to <code>fill</code></p>
+</section><section id="example" class="slide level2">
+<h2>Example:</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(classdata)
+<span class="kw">library</span>(ggplot2)
+<span class="kw">ggplot</span>(fbi, <span class="kw">aes</span>(<span class="dt">x =</span> Type, <span class="dt">fill=</span>Year)) +<span class="st"> </span><span class="kw">geom_bar</span>() <span class="co"># nothing happens</span></code></pre></div>
+<p><img src="05_factors_files/figure-revealjs/unnamed-chunk-10-1.png" width="768" /></p>
+</section><section id="section" class="slide level2">
+<h2></h2>
+<p>Not sensible, but the colors show up:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(fbi, <span class="kw">aes</span>(<span class="dt">x =</span> Type, <span class="dt">fill=</span><span class="kw">factor</span>(Year))) +<span class="st"> </span><span class="kw">geom_bar</span>() </code></pre></div>
+<p><img src="05_factors_files/figure-revealjs/unnamed-chunk-11-1.png" width="768" /></p>
+</section><section id="example-survival-on-the-titanic" class="slide level2">
+<h2>Example: Survival on the Titanic</h2>
+<p>The object <code>Titanic</code> is a table of a break down of survival of passengers and crew on board the Titanic by gender and age.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(classdata)
+<span class="kw">head</span>(Titanic)</code></pre></div>
+<pre><code>##   Class  Sex   Age Survived
+## 1   3rd Male Child       No
+## 2   3rd Male Child       No
+## 3   3rd Male Child       No
+## 4   3rd Male Child       No
+## 5   3rd Male Child       No
+## 6   3rd Male Child       No</code></pre>
+</section><section id="barcharts-of-all-variables" class="slide level2">
+<h2>Barcharts of all variables</h2>
+<div class="double">
+<p class="double-flow">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(Titanic, <span class="kw">aes</span>(<span class="dt">x =</span> Survived)) +<span class="st"> </span><span class="kw">geom_bar</span>()</code></pre></div>
+<p><img src="05_factors_files/figure-revealjs/unnamed-chunk-13-1.png" width="288" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(Titanic, <span class="kw">aes</span>(<span class="dt">x =</span> Sex)) +<span class="st"> </span><span class="kw">geom_bar</span>()</code></pre></div>
+<img src="05_factors_files/figure-revealjs/unnamed-chunk-13-2.png" width="288" />
+</p>
+<p class="double-flow">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(Titanic, <span class="kw">aes</span>(<span class="dt">x =</span> Class)) +<span class="st"> </span><span class="kw">geom_bar</span>()</code></pre></div>
+<p><img src="05_factors_files/figure-revealjs/unnamed-chunk-14-1.png" width="288" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(Titanic, <span class="kw">aes</span>(<span class="dt">x =</span> Age)) +<span class="st"> </span><span class="kw">geom_bar</span>()</code></pre></div>
+<img src="05_factors_files/figure-revealjs/unnamed-chunk-14-2.png" width="288" />
+</p>
+</div>
+</section><section id="positionfill" class="slide level2">
+<h2><code>position=&quot;fill&quot;</code></h2>
+<div class="double">
+<p class="double-flow">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(Titanic, <span class="kw">aes</span>(<span class="dt">x =</span> Survived, <span class="dt">fill=</span>Survived)) +<span class="st"> </span><span class="kw">geom_bar</span>(<span class="dt">position=</span><span class="st">&quot;fill&quot;</span>)</code></pre></div>
+<p><img src="05_factors_files/figure-revealjs/unnamed-chunk-15-1.png" width="288" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(Titanic, <span class="kw">aes</span>(<span class="dt">x =</span> Sex, <span class="dt">fill=</span>Survived)) +<span class="st"> </span><span class="kw">geom_bar</span>(<span class="dt">position=</span><span class="st">&quot;fill&quot;</span>)</code></pre></div>
+<img src="05_factors_files/figure-revealjs/unnamed-chunk-15-2.png" width="288" />
+</p>
+<p class="double-flow">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(Titanic, <span class="kw">aes</span>(<span class="dt">x =</span> Class, <span class="dt">fill=</span>Survived)) +<span class="st"> </span><span class="kw">geom_bar</span>(<span class="dt">position=</span><span class="st">&quot;fill&quot;</span>)</code></pre></div>
+<p><img src="05_factors_files/figure-revealjs/unnamed-chunk-16-1.png" width="288" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(Titanic, <span class="kw">aes</span>(<span class="dt">x =</span> Age, <span class="dt">fill=</span>Survived)) +<span class="st"> </span><span class="kw">geom_bar</span>(<span class="dt">position =</span> <span class="st">&quot;fill&quot;</span>)</code></pre></div>
+<img src="05_factors_files/figure-revealjs/unnamed-chunk-16-2.png" width="288" />
+</p>
+</div>
+</section><section id="two-and-more-factor-variables" class="slide level2">
+<h2>Two and more factor variables</h2>
+<ul>
+<li>besides facetting and position, use</li>
+<li><em>mosaic plots</em></li>
+<li>there are extension packages for <code>ggplot2</code>, e.g. <code>ggmosaic</code></li>
+</ul>
+</section><section id="mosaicplots" class="slide level2">
+<h2>Mosaicplots</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggmosaic)
+<span class="kw">ggplot</span>(<span class="dt">data =</span> Titanic)  +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_mosaic</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">product</span>(Sex), <span class="dt">fill=</span>Survived, <span class="dt">weight=</span><span class="dv">1</span>)) +
+<span class="st">  </span><span class="kw">facet_grid</span>(Age~Class)</code></pre></div>
+<p><img src="05_factors_files/figure-revealjs/unnamed-chunk-17-1.png" width="960" /></p>
+</section><section id="your-turn-2" class="slide level2 white">
+<h2>Your turn</h2>
+<p><img class="cover" src="images/blue.jpeg" alt="" width=2000></p>
+<p><span style="color:white">For this your turn use the <code>Titanic</code> object from the <code>classdata</code> package. (you might have to update the package using the command <code>devtools::github_install(&quot;heike/classdata&quot;)</code>) </span></p>
+<ul>
+<li><span style="color:white">Draw a barchart of Gender. Interpret.</span></li>
+<li><span style="color:white">Map survival to fill color in the barchart of Gender. Interpret.</span></li>
+<li><span style="color:white">In the previous barchart change the <code>position</code> parameter to <code>&quot;fill&quot;</code>. Interpret.</span></li>
+<li><span style="color:white">Read up on the <code>position</code> parameter in <code>?geom_bar</code>. Try out other options for <code>position</code>.</span></li>
+</ul>
 </section><section id="read-more-on-factors" class="slide level2">
 <h2>Read more on factors</h2>
 <ul>
