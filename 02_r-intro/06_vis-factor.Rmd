@@ -72,7 +72,7 @@ ggplot(Titanic, aes(x = Age)) + geom_bar()
 
 <img class="cover" src="images/blue.jpeg" alt="" width=2000>
 
-<span style="color:white">For this your turn use the `Titanic` object from the `classdata` package. (you might have to update the package using the command `devtools::github_install("heike/classdata")`) </span>
+<span style="color:white">For this your turn use the `Titanic` object from the `classdata` package. (you might have to update the package using the command `devtools::install_github("heike/classdata")`) </span>
 
 - <span style="color:white">Draw a barchart of Gender. Interpret.</span>
 - <span style="color:white">Map survival to fill color in the barchart of Gender. Interpret.</span>
