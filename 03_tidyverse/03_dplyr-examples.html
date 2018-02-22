@@ -129,10 +129,10 @@ fbi %&gt;%<span class="st"> </span><span class="kw">filter</span>(best ==<span c
 ## 6 Burglary                             Mississippi    1963 130    
 ## 7 Larceny.theft                        West Virginia  1961 205    
 ## 8 Motor.vehicle.theft                  Vermont        2014  27.3</code></pre>
-</section><section id="your-turn-group_by-and-summarise" class="slide level2 white">
-<h2>Your turn: group_by and summarise</h2>
+</section><section id="your-turn-group_by-and-mutate" class="slide level2 white">
+<h2>Your turn: group_by and mutate</h2>
 <p><img class="cover" src="images/blue.jpeg" alt="" width=2000></p>
-<p><span style="color:white">For this your turn use the <code>happy</code> data from the <code>classdata</code> package </span></p>
+<p><span style="color:white">For this your turn use the <code>fbi</code> data from the <code>classdata</code> package </span></p>
 <ul>
 <li><span style="color:white">Find the ranks for all rates of crime by type of crime and year.</span></li>
 <li><span style="color:white">Focus on the top states. Find a visual that shows how often each state managed to take the top spot since 1961.</span><br><br><br><br><br><br><br><br></li>
@@ -140,9 +140,9 @@ fbi %&gt;%<span class="st"> </span><span class="kw">filter</span>(best ==<span c
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fbi &lt;-<span class="st"> </span>fbi %&gt;%<span class="st"> </span><span class="kw">group_by</span>(Type, Year) %&gt;%<span class="st"> </span><span class="kw">mutate</span>(
   <span class="dt">best =</span> <span class="kw">rank</span>(Rate, <span class="dt">na.last=</span> <span class="st">&quot;keep&quot;</span>) <span class="co"># ranks from lowest rate to highest rate</span>
 )
-fbi %&gt;%<span class="st"> </span><span class="kw">filter</span>(best ==<span class="st"> </span><span class="dv">2</span>) %&gt;%<span class="st"> </span>
+fbi %&gt;%<span class="st"> </span><span class="kw">filter</span>(best &lt;=<span class="st"> </span><span class="dv">3</span>) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Abb)) +
-<span class="st">  </span><span class="kw">geom_bar</span>() +<span class="st"> </span><span class="kw">facet_wrap</span>(~Type, <span class="dt">scales=</span><span class="st">&quot;free&quot;</span>) +<span class="st"> </span><span class="kw">coord_flip</span>()</code></pre></div>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">fill=</span><span class="kw">factor</span>(best))) +<span class="st"> </span><span class="kw">facet_wrap</span>(~Type, <span class="dt">scales=</span><span class="st">&quot;free&quot;</span>) +<span class="st"> </span><span class="kw">coord_flip</span>()</code></pre></div>
 <p><img src="03_dplyr-examples_files/figure-revealjs/unnamed-chunk-5-1.png" width="768" /></p>
 </section>
 
