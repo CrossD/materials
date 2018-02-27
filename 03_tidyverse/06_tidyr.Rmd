@@ -9,10 +9,14 @@ output:
     theme: ribbon
 ---
 
+# Messy (2)
+
 ## separate
 
-```{r}
-df <- data.frame(x = c(NA, "a.b", "a.d", "b.c"))
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+df <- data.frame(x = c("a.b", "a.d", "b.c", NA))
+df
 df %>% separate(x, into = c("A", "B"))
 ```
 
@@ -53,14 +57,4 @@ no Messy 1? - problems of type Messy 1 are typically hard to detect and often up
   2. What is the single largest cost in the campaign expenditures?
   3. What time frame does the campaign expenditure cover?
   4. Plot geographic longitude and latitude. Do campaign expenditures stay in the State of IA? Investigate oddities.
-
-## Another Your-Turn (10 mins)
-
-<img src="images/census-occupation.png" width=1100 class="cover" style="opacity:0.4">
-
-During the 1870 census data on people's occupation was collected. The data [occupation-1870](../data/occupation-1870.csv) contains state-level aggregates of occupation by gender.
-
-- Use `tidyr` to get the data into a long format. 
-- Separate the `occupation.gender` type variable into two variables.
-- Spread the data such that you can draw scatterplots of values for men against women facetted by occupation.
 
