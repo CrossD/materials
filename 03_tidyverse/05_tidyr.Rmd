@@ -145,6 +145,18 @@ ffm %>% spread(key = rep, value = score) %>%
 
 <img class="cover" src="images/blue.jpeg" alt="" width=2000>
 
+<span style="color:white">For this your turn use the `french_fries` data from the `reshape2` package: `data("french_fries", package="reshape2")` </span>
+
+- <span style="color:white">Use `gather` from the `tidyr` package to combine the different scales for assessing french fries into a single variable. Call the key-value pair "scale" and "score". </span>
+- <span style="color:white">Use `spread` from the `tidyr` package to get a format in which you can directly compare values from week 1 to week 10. Plot a scatterplot of values in week 1 against week 10. Facet by treatment and scale, color by individuals   and use different shapes for the replicates. Is there a pattern visible?</span>
+
+
+
+
+## Your turn {.white}
+
+<img class="cover" src="images/blue.jpeg" alt="" width=2000>
+
 <span style="color:white">For this your turn use the `fbiwide` data from the `classdata` package: `data("fbiwide", package="classdata")` </span>
 
 - <span style="color:white">Use `gather` from the `tidyr` package to combine the variables for the different types of crimes into one variable. Call the key-value pair "Type" and "Incidences". Compute a crime rate</span>

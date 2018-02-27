@@ -79,7 +79,7 @@
 <ul>
 <li>Different sources of messiness</li>
 <li>Key-Value pairs</li>
-<li><code>tidyr</code>: <code>spread</code> and <code>gather</code>, <code>separate</code></li>
+<li><code>tidyr</code>: <code>spread</code> and <code>gather</code></li>
 </ul>
 </section><section id="data-is-usually-in-a-spreadsheet-format-but" class="slide level2">
 <h2>Data is usually in a spreadsheet format, but …</h2>
@@ -161,7 +161,7 @@
 <li>data from sensory experiment conducted at Iowa State University in 2004</li>
 <li>investigators were interested in comparing effects of three different fryer oils on taste of fries</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">french_fries %&gt;%<span class="st"> </span><span class="kw">head</span>()</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">french_fries <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()</code></pre></div>
 <pre><code>##    time treatment subject rep potato buttery grassy rancid painty
 ## 61    1         1       3   1    2.9     0.0    0.0    0.0    5.5
 ## 25    1         1       3   2   14.0     0.0    0.0    1.1    0.0
@@ -171,7 +171,7 @@
 ## 27    1         1      15   2    8.8     3.0    3.6    1.5    2.3</code></pre>
 </section><section id="gather" class="slide level2">
 <h2>Gather</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ffm &lt;-<span class="st"> </span>french_fries %&gt;%<span class="st"> </span><span class="kw">gather</span>(<span class="dt">key =</span> scale, <span class="dt">value =</span> score, <span class="dv">5</span>:<span class="dv">9</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ffm &lt;-<span class="st"> </span>french_fries <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gather</span>(<span class="dt">key =</span> scale, <span class="dt">value =</span> score, <span class="dv">5</span><span class="op">:</span><span class="dv">9</span>)
 ffm</code></pre></div>
 <pre><code>##      time treatment subject rep   scale score
 ## 1       1         1       3   1  potato   2.9
@@ -3656,7 +3656,7 @@ ffm</code></pre></div>
 ## 3480   10         3      86   2  painty   9.4</code></pre>
 </section><section id="spread" class="slide level2">
 <h2>Spread</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ffm %&gt;%<span class="st"> </span><span class="kw">spread</span>(<span class="dt">key =</span> rep, <span class="dt">value =</span> score)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ffm <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">spread</span>(<span class="dt">key =</span> rep, <span class="dt">value =</span> score)</code></pre></div>
 <pre><code>##      time treatment subject   scale    1    2
 ## 1       1         1       3 buttery  0.0  0.0
 ## 2       1         1       3  grassy  0.0  0.0
@@ -5400,12 +5400,20 @@ ffm</code></pre></div>
 ## 1740   10         3      86  rancid  7.0  8.2</code></pre>
 </section><section id="section" class="slide level2">
 <h2></h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ffm %&gt;%<span class="st"> </span><span class="kw">spread</span>(<span class="dt">key =</span> rep, <span class="dt">value =</span> score) %&gt;%
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="st">`</span><span class="dt">1</span><span class="st">`</span>, <span class="dt">y =</span> <span class="st">`</span><span class="dt">2</span><span class="st">`</span>)) +<span class="st"> </span><span class="kw">geom_point</span>() +
-<span class="st">  </span><span class="kw">facet_wrap</span>(~scale) +<span class="st"> </span><span class="kw">geom_abline</span>(<span class="dt">colour =</span> <span class="st">&quot;grey50&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ffm <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">spread</span>(<span class="dt">key =</span> rep, <span class="dt">value =</span> score) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="st">`</span><span class="dt">1</span><span class="st">`</span>, <span class="dt">y =</span> <span class="st">`</span><span class="dt">2</span><span class="st">`</span>)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>scale) <span class="op">+</span><span class="st"> </span><span class="kw">geom_abline</span>(<span class="dt">colour =</span> <span class="st">&quot;grey50&quot;</span>)</code></pre></div>
 <pre><code>## Warning: Removed 9 rows containing missing values (geom_point).</code></pre>
 <p><img src="05_tidyr_files/figure-revealjs/unnamed-chunk-8-1.png" width="768" /></p>
 </section><section id="your-turn" class="slide level2 white">
+<h2>Your turn</h2>
+<p><img class="cover" src="images/blue.jpeg" alt="" width=2000></p>
+<p><span style="color:white">For this your turn use the <code>french_fries</code> data from the <code>reshape2</code> package: <code>data(&quot;french_fries&quot;, package=&quot;reshape2&quot;)</code> </span></p>
+<ul>
+<li><span style="color:white">Use <code>gather</code> from the <code>tidyr</code> package to combine the different scales for assessing french fries into a single variable. Call the key-value pair “scale” and “score”. </span></li>
+<li><span style="color:white">Use <code>spread</code> from the <code>tidyr</code> package to get a format in which you can directly compare values from week 1 to week 10. Plot a scatterplot of values in week 1 against week 10. Facet by treatment and scale, color by individuals and use different shapes for the replicates. Is there a pattern visible?</span></li>
+</ul>
+</section><section id="your-turn-1" class="slide level2 white">
 <h2>Your turn</h2>
 <p><img class="cover" src="images/blue.jpeg" alt="" width=2000></p>
 <p><span style="color:white">For this your turn use the <code>fbiwide</code> data from the <code>classdata</code> package: <code>data(&quot;fbiwide&quot;, package=&quot;classdata&quot;)</code> </span></p>
