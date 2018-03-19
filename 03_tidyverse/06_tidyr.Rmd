@@ -28,6 +28,7 @@ The Iowa Data Portal is a wealth of information on and about the State of Iowa.
 The website 
 [Campaign Expenditures](https://data.iowa.gov/Government/Campaign-Expenditures/3adi-mht4/data) provides data on campaign expenditures. The code below reads the data into an R session.
 
+
 ```
 url <- "https://data.iowa.gov/api/views/3adi-mht4/rows.csv"
 campaign <- readr::read_csv(url)
