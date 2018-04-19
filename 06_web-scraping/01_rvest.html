@@ -418,7 +418,7 @@ box</code></pre></div>
 <h2>SelectorGadget</h2>
 <ul>
 <li>SelectorGadget is a javascript bookmarklet to determine the css selectors of pieces of a website we want to extract.</li>
-<li>Bookmark the <a href="javascript:(function()%7Bvar%20s=document.createElement(&#39;div&#39;);s.innerHTML=&#39;Loading...&#39;;s.style.color=&#39;black&#39;;s.style.padding=&#39;20px&#39;;s.style.position=&#39;fixed&#39;;s.style.zIndex=&#39;9999&#39;;s.style.fontSize=&#39;3.0em&#39;;s.style.border=&#39;2px%20solid%20black&#39;;s.style.right=&#39;40px&#39;;s.style.top=&#39;40px&#39;;s.setAttribute(&#39;class&#39;,&#39;selector_gadget_loading&#39;);s.style.background=&#39;white&#39;;document.body.appendChild(s);s=document.createElement(&#39;script&#39;);s.setAttribute(&#39;type&#39;,&#39;text/javascript&#39;);s.setAttribute(&#39;src&#39;,&#39;http://www.selectorgadget.com/stable/lib/selectorgadget.js?raw=true&#39;);document.body.appendChild(s);%7D)();">SelectorGadget</a> link, then click on it to use it.</li>
+<li>Read up on the <a href="http://selectorgadget.com/">SelectorGadget</a> link: install it for your machine by either bookmarking the link or installing the Chrome extension, then click on it to use it.</li>
 <li>When SelectorGadget is active, pieces of the website are highlighted in orange/green/red.</li>
 <li>Use SelectorGadget on <a href="http://www.baseball-reference.com/players/" class="uri">http://www.baseball-reference.com/players/</a> .</li>
 <li>read more details on <code>vignette(&quot;selectorgadget&quot;)</code></li>
@@ -448,7 +448,7 @@ html <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">htm
 ## [5] &quot;/players/a/abadan01.shtml&quot;  &quot;/players/a/abadfe01.shtml&quot;</code></pre>
 </section><section id="your-turn" class="slide level2">
 <h2>Your Turn</h2>
-<p>Use the <a href="javascript:(function()%7Bvar%20s=document.createElement(&#39;div&#39;);s.innerHTML=&#39;Loading...&#39;;s.style.color=&#39;black&#39;;s.style.padding=&#39;20px&#39;;s.style.position=&#39;fixed&#39;;s.style.zIndex=&#39;9999&#39;;s.style.fontSize=&#39;3.0em&#39;;s.style.border=&#39;2px%20solid%20black&#39;;s.style.right=&#39;40px&#39;;s.style.top=&#39;40px&#39;;s.setAttribute(&#39;class&#39;,&#39;selector_gadget_loading&#39;);s.style.background=&#39;white&#39;;document.body.appendChild(s);s=document.createElement(&#39;script&#39;);s.setAttribute(&#39;type&#39;,&#39;text/javascript&#39;);s.setAttribute(&#39;src&#39;,&#39;http://www.selectorgadget.com/stable/lib/selectorgadget.js?raw=true&#39;);document.body.appendChild(s);%7D)();">SelectorGadget</a> on the website for <a href="http://www.baseball-reference.com/players/a/aardsda01.shtml">David Aardsma</a></p>
+<p>Use the SelectorGadget on the website for <a href="http://www.baseball-reference.com/players/a/aardsda01.shtml">David Aardsma</a></p>
 <p>Find the css description to extract his career statistics and load them into your R session.</p>
 <p>Does the same code work to extract career statistics for (some of) the other players?</p>
 <p>What other information do we need to know? - and how can we get to that?</p>
@@ -480,11 +480,13 @@ html <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">htm
 ## [19] &lt;h4 class=&quot;poptip&quot; data-tip=&quot;Strikeouts&quot;&gt;SO&lt;/h4&gt;
 ## [20] &lt;p&gt;340&lt;/p&gt;
 ## ...</code></pre>
+</section><section id="your-turn---solution-2" class="slide level2">
+<h2>Your Turn - Solution (2)</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># better: pull out individual vectors</span>
 html <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_nodes</span>(<span class="st">&quot;h4&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_text</span>()</code></pre></div>
 <pre><code>##  [1] &quot;SUMMARY&quot; &quot;WAR&quot;     &quot;W&quot;       &quot;L&quot;       &quot;ERA&quot;     &quot;G&quot;       &quot;GS&quot;     
 ##  [8] &quot;SV&quot;      &quot;IP&quot;      &quot;SO&quot;      &quot;WHIP&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">html <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_nodes</span>(<span class="st">&quot;.stats_pullout p&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_text</span>()</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">html <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_nodes</span>(<span class="st">&quot;.stats_pullout p&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">html_text</span>() </code></pre></div>
 <pre><code>##  [1] &quot;Career&quot; &quot;1.7&quot;    &quot;16&quot;     &quot;18&quot;     &quot;4.27&quot;   &quot;331&quot;    &quot;0&quot;     
 ##  [8] &quot;69&quot;     &quot;337.0&quot;  &quot;340&quot;    &quot;1.421&quot;</code></pre>
 </section>
