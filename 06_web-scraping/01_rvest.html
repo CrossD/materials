@@ -91,22 +91,22 @@ html</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(tables[[<span class="dv">1</span>]])</code></pre></div>
 <pre><code>## [1] 1 3</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(tables[[<span class="dv">2</span>]])</code></pre></div>
-<pre><code>## [1] 93 10</code></pre>
+<pre><code>## [1] 51 10</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(tables[[<span class="dv">2</span>]])</code></pre></div>
 <pre><code>##                    Movie        Distributor       Gross Change Thtrs.
-## 1 1 new          Rampage       Warner Bros. $35,753,093         4,101
-## 2 2 (1)    A Quiet Place Paramount Pictures $32,970,049   -34%  3,589
-## 3 3 new    Truth or Dare          Universal $18,667,855         3,029
-## 4 4 (2) Ready Player One       Warner Bros. $11,519,388   -53%  3,661
-## 5 5 (3)         Blockers          Universal $10,770,310   -48%  3,418
-## 6 6 (4)    Black Panther        Walt Disney  $5,777,896   -34%  2,180
+## 1 1 (2)    A Quiet Place Paramount Pictures $22,000,000   -33%  3,808
+## 2 2 (1)          Rampage       Warner Bros. $21,000,000   -41%  4,115
+## 3 3 new    I Feel Pretty  STX Entertainment $16,220,000         3,440
+## 4 4 new Super Troopers 2   20th Century Fox $14,700,000         2,038
+## 5 5 (3)    Truth or Dare          Universal  $7,912,000   -58%  3,068
+## 6 6 (4) Ready Player One       Warner Bros.  $7,500,000   -35%  3,208
 ##   Per Thtr.  Total Gross Week
-## 1    $8,718  $35,753,093    1
-## 2    $9,186 $100,005,934    2
-## 3    $6,163  $18,667,855    1
-## 4    $3,147 $114,922,186    3
-## 5    $3,151  $37,403,980    2
-## 6    $2,650 $674,233,418    9</code></pre>
+## 1    $5,777 $132,358,711    3
+## 2    $5,103  $66,600,066    2
+## 3    $4,715  $16,220,000    1
+## 4    $7,213  $14,700,000    1
+## 5    $2,579  $30,387,415    2
+## 6    $2,338 $126,181,326    4</code></pre>
 </section><section id="section" class="slide level2">
 <h2></h2>
 <p>Most tables need a bit of clean-up:</p>
@@ -119,288 +119,110 @@ box &lt;-<span class="st"> </span>tables[[<span class="dv">2</span>]] <span clas
   <span class="dt">Thtrs. =</span> <span class="kw">parse_number</span>(Thtrs.)
 )
 box</code></pre></div>
-<pre><code>##    Rank.Last.Week Rank                          Movie
-## 1               1  new                        Rampage
-## 2               2  (1)                  A Quiet Place
-## 3               3  new                  Truth or Dare
-## 4               4  (2)               Ready Player One
-## 5               5  (3)                       Blockers
-## 6               6  (4)                  Black Panther
-## 7               7 (10)                   Isle of Dogs
-## 8               8  (6)             I Can Only Imagine
-## 9               9  (5)                       Acrimony
-## 10             10  (7)                 Chappaquiddick
-## 11             11  (8)                Sherlock Gnomes
-## 12             12 (11)             The Miracle Season
-## 13             13  new                         Beirut
-## 14             14  (9)          Pacific Rim: Uprising
-## 15             15 (12)              A Wrinkle in Time
-## 16             16 (13)                    Love, Simon
-## 17             17 (15)        Paul, Apostle of Christ
-## 18             18 (18)            The Death of Stalin
-## 19             19 (14)                    Tomb Raider
-## 20             20 (19)                   Peter Rabbit
-## 21             21 (17)                     Game Night
-## 22             22 (29)     You Were Never Really Here
-## 23             23 (30)              Finding Your Feet
-## 24             24 (20)             The Leisure Seeker
-## 25             25 (23)           The Greatest Showman
-## 26             26 (21) Jumanji: Welcome to the Jungle
-## 27             27 (27)                         Pandas
-## 28             28 (16)     God’s Not Dead: A Light i…
-## 29             29 (24)                    Red Sparrow
-## 30             30 (28)                   Annihilation
-## 31             31 (22)                   Midnight Sun
-## 32             32 (26)   The Strangers: Prey at Night
-## 33             33 (41)                   Lean on Pete
-## 34             34 (31)                     Death Wish
-## 35             35  new   Grace Jones: Bloodlight and…
-## 36             36 (25)                       Baaghi 2
-## 37             37  new                      The Rider
-## 38             38 (37)                 Final Portrait
-## 39             39 (35)                           Coco
-## 40             40 (34)                      Ferdinand
-## 41             41 (38)             The Shape of Water
-## 42             42 (36)                        Foxtrot
-## 43             43 (39)                         Itzhak
-## 44             44 (42)                       The Post
-## 45             45 (40)    Maze Runner: The Death Cure
-## 46             46  new                           Zama
-## 47             47 (52)               Back to Burgundy
-## 48             48 (45)   Three Billboards Outside Eb…
-## 49             49 (53)     Film Stars Don’t Die in L…
-## 50             50 (43)                           1945
-## 51             51 (49)   Bombshell: The Hedy Lamarr …
-## 52             52  new        Gonjiam: Haunted Asylum
-## 53             53 (33)                         Gemini
-## 54             54 (48)              A Fantastic Woman
-## 55             55 (47)          Leaning into the Wind
-## 56             56 (65)               A Bag of Marbles
-## 57             57 (50)           Call Me by Your Name
-## 58             58 (54)                       I, Tonya
-## 59             59 (63)                    The Endless
-## 60             60 (70)                Forever My Girl
-## 61             61 (61)                 Ismael’s Ghost
-## 62             62  new             Hitler’s Hollywood
-## 63             63 (51)       But Deliver Us From Evil
-## 64             64 (58)                Love After Love
-## 65             65  (-) Quai des Orfevres (Re-Release)
-## 66             66 (57)                       Oh Lucy!
-## 67             67 (46)   Star Wars Ep. VIII: The Las…
-## 68             68 (55)                     Outside In
-## 69             69  new                Bye Bye Germany
-## 70             70 (81)                   Walk with me
-## 71             71 (56)                  Journey’s End
-## 72             72 (62)                Keep The Change
-## 73             73 (68)                  Getting Grace
-## 74             74 (60)                       Loveless
-## 75             75 (66)                     The Insult
-## 76             76 (87)            The Last Movie Star
-## 77             77 (73)                    Ramen Heads
-## 78             78 (71)                      The Party
-## 79             80 (83)            The Hurricane Heist
-## 80             81 (80)                       Hostiles
-## 81             82 (89)                  Faces, Places
-## 82             83  new                           Nana
-## 83             84 (64)                         Flower
-## 84             85 (67)                   The Workshop
-## 85             86 (88)                    Apocalypsis
-## 86             87  (-)                        Vazante
-## 87             88 (72)              Operation Red Sea
-## 88             89 (79)            The Young Karl Marx
-## 89             90 (84)           Summer in the Forest
-## 90             91  new                     Marrowbone
-## 91             92  (-)                          Beuys
-## 92             93 (75)               The China Hustle
-## 93             94 (94)                Have a Nice Day
-##               Distributor    Gross Change Thtrs. Per Thtr.  Total Gross
-## 1            Warner Bros. 35753093          4101    $8,718  $35,753,093
-## 2      Paramount Pictures 32970049   -34%   3589    $9,186 $100,005,934
-## 3               Universal 18667855          3029    $6,163  $18,667,855
-## 4            Warner Bros. 11519388   -53%   3661    $3,147 $114,922,186
-## 5               Universal 10770310   -48%   3418    $3,151  $37,403,980
-## 6             Walt Disney  5777896   -34%   2180    $2,650 $674,233,418
-## 7         Fox Searchlight  5475139   +20%   1939    $2,824  $18,926,003
-## 8    Roadside Attractions  4141834   -47%   2573    $1,610  $75,293,399
-## 9               Lionsgate  3652698   -56%   1332    $2,742  $37,828,175
-## 10   Entertainment Studi…  3059560   -47%   1645    $1,860  $11,040,943
-## 11     Paramount Pictures  2404661   -56%   2116    $1,136  $37,228,148
-## 12       LD Entertainment  2213207   -44%   1707    $1,297   $7,042,043
-## 13        Bleecker Street  1734497           755    $2,297   $2,107,195
-## 14              Universal  1451540   -70%   1537      $944  $57,605,675
-## 15            Walt Disney  1380257   -58%   1112    $1,241  $92,476,477
-## 16       20th Century Fox  1060295   -62%    889    $1,193  $39,329,296
-## 17          Sony Pictures   611693   -65%    581    $1,053  $16,394,992
-## 18              IFC Films   481691   -51%    330    $1,460   $6,319,503
-## 19           Warner Bros.   460619   -76%    502      $918  $56,227,188
-## 20          Sony Pictures   386835   -60%    519      $745 $113,869,487
-## 21           Warner Bros.   343434   -68%    356      $965  $67,887,388
-## 22         Amazon Studios   325949  +145%     51    $6,391     $512,782
-## 23   Roadside Attractions   282895  +128%    277    $1,021     $573,074
-## 24 Sony Pictures Classics   273275   -48%    276      $990   $2,346,198
-## 25       20th Century Fox   226044   -39%    209    $1,082 $173,296,519
-## 26          Sony Pictures   186654   -58%    183    $1,020 $403,951,485
-## 27             IMAX Films   128861   -19%     33    $3,905     $381,777
-## 28   Pure Flix Entertain…   123042   -89%    193      $638   $5,437,334
-## 29       20th Century Fox   119156   -54%    152      $784  $46,515,233
-## 30     Paramount Pictures   102455   -34%    119      $861  $32,685,385
-## 31              Open Road    93359   -78%    251      $372   $9,406,720
-## 32        Aviron Pictures    90902   -53%     61    $1,490  $24,227,749
-## 33                    A24    77151   +64%     18    $4,286     $139,567
-## 34                    MGM    76543   -31%    111      $690  $33,796,404
-## 35            Kino Lorber    56171             3   $18,724      $56,171
-## 36                    FIP    49042   -80%     48    $1,022   $1,299,994
-## 37 Sony Pictures Classics    42244             3   $14,081      $42,244
-## 38 Sony Pictures Classics    39909   -26%     32    $1,247     $201,366
-## 39            Walt Disney    37553   -47%     85      $442 $209,680,314
-## 40       20th Century Fox    35632   -51%     85      $419  $84,284,388
-## 41        Fox Searchlight    34293   -36%     48      $714  $63,814,637
-## 42 Sony Pictures Classics    33314   -40%     38      $877     $500,496
-## 43              Greenwich    30239   -39%     26    $1,163     $287,771
-## 44       20th Century Fox    27658   -40%     41      $675  $81,835,084
-## 45       20th Century Fox    27600   -43%     61      $452  $57,992,782
-## 46                 Strand    26123             3    $8,708      $26,123
-## 47        Music Box Films    24433    +6%     18    $1,357     $138,006
-## 48        Fox Searchlight    23986   -29%     41      $585  $54,465,037
-## 49 Sony Pictures Classics    22934    +8%     24      $956     $973,182
-## 50 Menemsha Entertainment    21143   -47%     12    $1,762     $525,159
-## 51              Zeitgeist    20546   -27%     17    $1,209     $716,873
-## 52            Well Go USA    19017             2    $9,509      $19,017
-## 53                   Neon    18131   -76%     33      $549     $180,002
-## 54 Sony Pictures Classics    17549   -43%     23      $763   $1,925,940
-## 55      Magnolia Pictures    16226   -51%     27      $601     $315,437
-## 56       Self Distributed    14178   +63%      6    $2,363      $70,126
-## 57 Sony Pictures Classics    12564   -55%     18      $698  $18,065,180
-## 58                   Neon    11549   -45%     25      $462  $30,006,215
-## 59            Well Go USA    11542   +27%      3    $3,847      $26,189
-## 60   Roadside Attractions    11112   +91%     19      $585  $16,349,705
-## 61      Magnolia Pictures    10405    -7%     14      $743      $70,681
-## 62            Kino Lorber     8634             1    $8,634      $18,253
-## 63       Indican Pictures     8550   -65%      6    $1,425     $261,136
-## 64              IFC Films     7390   -44%      5    $1,478      $44,338
-## 65                            7125             1    $7,125     $160,086
-## 66          Film Movement     6638   -68%     10      $664     $287,188
-## 67            Walt Disney     5845   -83%     28      $209 $620,178,595
-## 68            The Orchard     5237   -75%      5    $1,047      $57,483
-## 69          Film Movement     4874             2    $2,437       $6,698
-## 70            Gathr Films     4618   +56%      3    $1,539     $709,094
-## 71   Good Deed Entertain…     4536   -78%      9      $504     $148,275
-## 72            Kino Lorber     4497   -58%      4    $1,124     $114,747
-## 73         Hannover House     4322   -36%      6      $720     $159,965
-## 74 Sony Pictures Classics     4225   -65%     12      $352     $545,077
-## 75      Cohen Media Group     3758   -53%      8      $470   $1,000,038
-## 76                    A24     3191   +94%      5      $638      $12,261
-## 77        Gunpowder &amp; Sky     3052   -44%      3    $1,017      $51,707
-## 78   Roadside Attractions     3046   -47%     14      $218     $730,366
-## 79   Entertainment Studi…     2085   -11%      8      $261   $6,108,470
-## 80   Entertainment Studi…     1870   -51%      7      $267  $29,812,013
-## 81      Cohen Media Group     1477   +76%     10      $148     $952,432
-## 82     First Run Features     1240             1    $1,240       $1,240
-## 83            The Orchard     1184   -87%      3      $395     $325,976
-## 84                 Strand     1172   -84%      1    $1,172      $19,865
-## 85       Indican Pictures     1172   +30%      2      $586      $13,785
-## 86        Music Box Films     1079             1    $1,079      $23,884
-## 87            Well Go USA     1001   -82%      1    $1,001   $1,541,725
-## 88            The Orchard      655   -83%      2      $328     $120,826
-## 89       Abramorama Films      636   -73%      3      $212      $23,844
-## 90        Magnet Pictures      624             7       $89         $624
-## 91            Kino Lorber      618             1      $618      $57,379
-## 92      Magnolia Pictures      172   -97%      1      $172      $48,600
-## 93                 Strand       40   -89%      1       $40      $79,326
-##    Week
-## 1     1
-## 2     2
-## 3     1
-## 4     3
-## 5     2
-## 6     9
-## 7     4
-## 8     5
-## 9     3
-## 10    2
-## 11    4
-## 12    2
-## 13    1
-## 14    4
-## 15    6
-## 16    5
-## 17    4
-## 18    6
-## 19    5
-## 20   10
-## 21    8
-## 22    2
-## 23    3
-## 24    6
-## 25   17
-## 26   17
-## 27    2
-## 28    3
-## 29    7
-## 30    8
-## 31    4
-## 32    6
-## 33    2
-## 34    7
-## 35    1
-## 36    3
-## 37    1
-## 38    4
-## 39   21
-## 40   18
-## 41   20
-## 42    7
-## 43    6
-## 44   17
-## 45   12
-## 46    1
-## 47    4
-## 48   23
-## 49   16
-## 50   24
-## 51   21
-## 52    1
-## 53    3
-## 54   11
-## 55    6
-## 56    4
-## 57   21
-## 58   19
-## 59    2
-## 60   13
-## 61    4
-## 62    1
-## 63   10
-## 64    3
-## 65  807
-## 66    7
-## 67   18
-## 68    3
-## 69    1
-## 70   39
-## 71    5
-## 72    5
-## 73    4
-## 74    9
-## 75   14
-## 76    3
-## 77    5
-## 78    9
-## 79    6
-## 80   17
-## 81   28
-## 82    1
-## 83    5
-## 84    4
-## 85    7
-## 86   14
-## 87    8
-## 88    8
-## 89    4
-## 90    1
-## 91   13
-## 92    3
-## 93   12</code></pre>
+<pre><code>##    Rank.Last.Week Rank                        Movie          Distributor
+## 1               1  (2)                A Quiet Place   Paramount Pictures
+## 2               2  (1)                      Rampage         Warner Bros.
+## 3               3  new                I Feel Pretty    STX Entertainment
+## 4               4  new             Super Troopers 2     20th Century Fox
+## 5               5  (3)                Truth or Dare            Universal
+## 6               6  (4)             Ready Player One         Warner Bros.
+## 7               7  (5)                     Blockers            Universal
+## 8               8  (6)                Black Panther          Walt Disney
+## 9               9  new                      Traffik            Lionsgate
+## 10             10  (7)                 Isle of Dogs      Fox Searchlight
+## 11             11  new              Bharat Ane Nenu    Great India Films
+## 12             12  (8)           I Can Only Imagine Roadside Attractions
+## 13             14  (9)                     Acrimony            Lionsgate
+## 14             13 (10)               Chappaquiddick Entertainment Studi…
+## 15             15 (11)              Sherlock Gnomes   Paramount Pictures
+## 16             16 (12)           The Miracle Season     LD Entertainment
+## 17             17 (13)                       Beirut      Bleecker Street
+## 18             18 (15)            A Wrinkle in Time          Walt Disney
+## 19             19 (14)        Pacific Rim: Uprising            Universal
+## 20             20 (16)                  Love, Simon     20th Century Fox
+## 21             21 (18)          The Death of Stalin            IFC Films
+## 22             22 (23)            Finding Your Feet Roadside Attractions
+## 23             23 (33)                 Lean on Pete                  A24
+## 24             24 (25)         The Greatest Showman     20th Century Fox
+## 25             25 (28)   God’s Not Dead: A Light i… Pure Flix Entertain…
+## 26             26 (59)                  The Endless          Well Go USA
+## 27             27 (35) Grace Jones: Bloodlight and…          Kino Lorber
+## 28             28 (31)                 Midnight Sun            Open Road
+## 29             29 (43)                       Itzhak            Greenwich
+## 30             30 (39)                         Coco          Walt Disney
+## 31             31 (52)      Gonjiam: Haunted Asylum          Well Go USA
+## 32             32 (47)             Back to Burgundy      Music Box Films
+## 33             33 (51) Bombshell: The Hedy Lamarr …            Zeitgeist
+## 34             34  new                Ghost Stories         IFC Midnight
+## 35             35 (73)              Keep The Change          Kino Lorber
+## 36             36  new             Godard Mon Amour    Cohen Media Group
+## 37             37 (60)              Forever My Girl Roadside Attractions
+## 38             38  new  The Devil and Father Amorth          The Orchard
+## 39             39  new  Lou Andreas-Salomé, The Au…         Cinema Libre
+## 40             40 (65)                   Outside In          The Orchard
+## 41             41  new        The Doctor From India            Zeitgeist
+## 42             42  new             This Is Our Land        Distrib Films
+## 43             43  (-)                  Blood Feast Crimson Forest Ente…
+## 44             44 (62)           Hitler’s Hollywood          Kino Lorber
+## 45             45 (71)                 Walk with me          Gathr Films
+## 46             46 (93)                        Beuys          Kino Lorber
+## 47             47 (79)                    The Party Roadside Attractions
+## 48             48 (85)                       Flower          The Orchard
+## 49             49 (90)          The Young Karl Marx          The Orchard
+## 50             50  (-)            Our Blood is Wine      Music Box Films
+## 51             51  (-)                 Tehran Taboo          Kino Lorber
+##       Gross Change Thtrs. Per Thtr.  Total Gross Week
+## 1  22000000   -33%   3808    $5,777 $132,358,711    3
+## 2  21000000   -41%   4115    $5,103  $66,600,066    2
+## 3  16220000          3440    $4,715  $16,220,000    1
+## 4  14700000          2038    $7,213  $14,700,000    1
+## 5   7912000   -58%   3068    $2,579  $30,387,415    2
+## 6   7500000   -35%   3208    $2,338 $126,181,326    4
+## 7   6987000   -35%   3134    $2,229  $48,254,045    3
+## 8   4642000   -20%   1930    $2,405 $681,084,109   10
+## 9   3881000          1046    $3,710   $3,881,000    1
+## 10  3400000   -38%   1947    $1,746  $24,360,538    5
+## 11  2800000           305    $9,180   $2,800,000    1
+## 12  2428761   -41%   1994    $1,218  $79,392,663    6
+## 13  2000000   -45%   1148    $1,742  $41,014,883    4
+## 14  2000000   -35%   1455    $1,375  $14,455,300    3
+## 15  1400000   -42%   1459      $960  $39,551,456    5
+## 16  1130000   -49%   1122    $1,007   $8,835,565    3
+## 17  1050000   -39%    755    $1,391   $3,901,925    2
+## 18   682000   -51%    665    $1,026  $93,668,619    7
+## 19   567000   -61%    646      $878  $58,653,740    5
+## 20   500000   -53%    491    $1,018  $40,212,402    6
+## 21   340216   -29%    210    $1,620   $6,861,920    7
+## 22   178909   -37%    191      $937     $929,306    4
+## 23   176241  +128%     69    $2,554     $346,829    3
+## 24   145000   -36%    169      $858 $173,520,696   18
+## 25    64197   -48%    111      $578   $5,554,287    4
+## 26    47656  +313%     17    $2,803      $80,833    3
+## 27    39611   -29%      9    $4,401     $121,989    2
+## 28    36664   -61%     90      $407   $9,479,823    5
+## 29    28710    -5%     33      $870     $332,572    7
+## 30    24000   -36%     59      $407 $209,717,761   22
+## 31    20005    +5%      7    $2,858      $47,555    2
+## 32    16751   -31%     16    $1,047     $163,984    5
+## 33    15226   -26%     15    $1,015     $744,738   22
+## 34    12563             1   $12,563      $12,563    1
+## 35    11186  +149%      6    $1,864     $128,012    6
+## 36    10994             4    $2,749      $10,994    1
+## 37     9293   -16%     22      $422  $16,363,361   14
+## 38     8378             8    $1,047       $8,378    1
+## 39     5000             1    $5,000       $5,000    1
+## 40     3613   -54%      6      $602      $64,699    4
+## 41     2442             1    $2,442       $5,146    1
+## 42     2442             1    $2,442       $4,965    1
+## 43     1984             3      $661       $6,446   44
+## 44     1792   -79%      1    $1,792      $25,226    2
+## 45     1530   -67%      1    $1,530     $712,016   40
+## 46     1391  +125%      1    $1,391      $59,030   14
+## 47     1215   -63%      5      $243     $734,155   10
+## 48      643   -46%      1      $643     $327,102    6
+## 49      620    -5%      1      $620     $121,446    9
+## 50      138             1      $138      $12,769    7
+## 51       96             1       $96      $74,280   10</code></pre>
 </section><section id="your-turn-6-mins" class="slide level2 white">
 <h2>Your Turn (6 mins)</h2>
 <p><img class="cover" src="images/blue.jpeg" alt="" width=2000></p>
